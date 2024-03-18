@@ -44,6 +44,7 @@ $hotels = [
 
 $parking = isset($_GET['parking']);
 $bestHotel = isset($_GET['bestHotel']);
+$index = 1 ; // Variabile per contare il numero di righe
 
 
 ?>
@@ -89,34 +90,46 @@ $bestHotel = isset($_GET['bestHotel']);
             <button type="submit" class="btn btn-dark">Filtra</button>
 
         </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Voto</th>
+                    <th scope="col">Parcheggio</th>
+                    <th scope="col">Distanza dal centro</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+
+                foreach($hotels as $hotel){
+                    if((!$parking || $hotel['parking']) && (!$bestHotel || $hotel['vote'] >= 3)){
+
+                        echo "<tr>";
+                        echo "<th scope='row'>$index</th>";
+                        echo "<td>{$hotel['name']}</td>";
+                        echo "<td>{$hotel['vote']}</td>";
+                        echo "<td>";
+                        echo $hotel['parking'] ? "Disponibile" : "Non disponibile";
+                        echo "</td>";
+                        echo "<td>{$hotel['distance_to_center']}</td>";
+                        echo "</tr>";
+                        $index++; // Incremento il numero di righe
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+
+
+
     </div>
 
-    <h2>Tutti gli Hotels:</h2>
-    <ul>
-        <?php
-        foreach ($hotels as $hotel) {
-            echo "<li>{$hotel['name']} - Voto: {$hotel['vote']} - Parcheggio: ";
-            echo $hotel['parking'] ? "Disponibile -" : "Non disponibile -";
-            echo " Distanza dal centro :  {$hotel['distance_to_center']}";
-            echo "</li>";
-        }
-        ?>
-    </ul>
 
-    <!-- Elenco degli hotels filtrati -->
-    <h2>Hotels Filtrati:</h2>
-    <ul>
-        <?php
-        foreach ($hotels as $hotel) {
-            if ((!$parking || $hotel['parking']) && (!$bestHotel || $hotel['vote'] >= 3)) {
-                echo "<li>{$hotel['name']} - Voto: {$hotel['vote']} - Parcheggio: ";
-                echo $hotel['parking'] ? "Disponibile -" : "Non disponibile -";
-                echo " Distanza dal centro :  {$hotel['distance_to_center']}";
-                echo "</li>";
-            }
-        }
-        ?>
-    </ul>
+
 
 
 
