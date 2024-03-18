@@ -7,35 +7,35 @@ $hotels = [
         'description' => 'Hotel Belvedere Descrizione',
         'parking' => true,
         'vote' => 4,
-        'distance_to_center' => 10.4
+        'distance_to_center' => "10.4 Km",
     ],
     [
         'name' => 'Hotel Futuro',
         'description' => 'Hotel Futuro Descrizione',
         'parking' => true,
         'vote' => 2,
-        'distance_to_center' => 2
+        'distance_to_center' => "2 km"
     ],
     [
         'name' => 'Hotel Rivamare',
         'description' => 'Hotel Rivamare Descrizione',
         'parking' => false,
         'vote' => 1,
-        'distance_to_center' => 1
+        'distance_to_center' => "1 Km"
     ],
     [
         'name' => 'Hotel Bellavista',
         'description' => 'Hotel Bellavista Descrizione',
         'parking' => false,
         'vote' => 5,
-        'distance_to_center' => 5.5
+        'distance_to_center' => "5.5 Km"
     ],
     [
         'name' => 'Hotel Milano',
         'description' => 'Hotel Milano Descrizione',
         'parking' => true,
         'vote' => 2,
-        'distance_to_center' => 50
+        'distance_to_center' => "50 m"
     ],
 
 ];
@@ -80,36 +80,43 @@ $bestHotel = isset($_GET['bestHotel']);
                     Hotel con parcheggio
                 </label>
             </div>
-            <div class="d-flex flex-column">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="true" id="bestHotel" name="bestHotel" <?php if ($bestHotel) echo 'checked'; ?>>
                 <label class="form-check-label" for="bestHotel">
                     Miglior punteggio
                 </label>
-                <input type="number" value="" id="bestHotel" name="bestHotel" checked>
-
             </div>
-            <input type="submit" class="btn btn-dark">
+            <button type="submit" class="btn btn-dark">Filtra</button>
 
         </form>
     </div>
 
+    <h2>Tutti gli Hotels:</h2>
     <ul>
         <?php
-
-
         foreach ($hotels as $hotel) {
+            echo "<li>{$hotel['name']} - Voto: {$hotel['vote']} - Parcheggio: ";
+            echo $hotel['parking'] ? "Disponibile -" : "Non disponibile -";
+            echo " Distanza dal centro :  {$hotel['distance_to_center']}";
+            echo "</li>";
+        }
+        ?>
+    </ul>
 
-            if ((!$parking || $hotel['parking']) && (!$bestHotel || $hotel['vote'] == 5)) {
-                echo "<li>{$hotel['name']} - Parcheggio: ";
-                echo $hotel['parking'] ? "Disponibile" : "Non disponibile";
-                echo $hotel['vote'] == $bestHotel ? "Voto:" . $hotel['vote'] : "Nessun risultato"; 
+    <!-- Elenco degli hotels filtrati -->
+    <h2>Hotels Filtrati:</h2>
+    <ul>
+        <?php
+        foreach ($hotels as $hotel) {
+            if ((!$parking || $hotel['parking']) && (!$bestHotel || $hotel['vote'] >= 3)) {
+                echo "<li>{$hotel['name']} - Voto: {$hotel['vote']} - Parcheggio: ";
+                echo $hotel['parking'] ? "Disponibile -" : "Non disponibile -";
+                echo " Distanza dal centro :  {$hotel['distance_to_center']}";
                 echo "</li>";
             }
         }
-
         ?>
-
     </ul>
-
 
 
 
