@@ -1,0 +1,10 @@
+body {
+    background-image: url('https://news.airbnb.com/wp-content/uploads/sites/4/2020/05/HotelTonight_SwankyHotelLobby-1.jpg?w=1024&resize=1920%2C1080');
+    background-size: cover;
+}
+
+.container {
+    margin-top: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+
+}
