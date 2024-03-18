@@ -59,25 +59,22 @@
     <title>Hotels</title>
 </head>
 <body>
+
+<ul>
     <?php
     
         foreach($hotels as $currentHotel){
             echo $currentHotel;
 
-            
+            foreach($currentHotel as $hotel){
+                echo "<li>$hotel</li>";
+            }
 
         };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      
     ?>
+
+</ul>
+    
 </body>
 </html>
